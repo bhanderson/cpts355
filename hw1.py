@@ -24,6 +24,10 @@ def makettable(s1, s2):
 		d[item] = s2[i]
 	return d
 
+def testhisto():
+	if histo("tests") != histo("sstte"): return False
+	return True
+
 def histo(s):
 	cnt = Counter(s)
 	d = dict(cnt)
