@@ -1,3 +1,4 @@
+from collections import Counter
 # function to test translation code
 # return True if successful, False if any test fails
 def testtrans():
@@ -22,3 +23,8 @@ def makettable(s1, s2):
 	for i,item in enumerate(s1):
 		d[item] = s2[i]
 	return d
+
+def histo(s):
+	cnt = Counter(s)
+	d = dict(cnt)
+	return sorted(d.items(), key=lambda item: -item[1])
