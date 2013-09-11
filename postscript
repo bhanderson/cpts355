@@ -1,0 +1,47 @@
+/f {3 add} def
+	this function adds 3 to whatever was on the stack
+
+/fact { 
+	/x exch def 				# push the name x and exch
+		0 x eq					# 0 and x which is 2 equal? False
+		{1}						# push on code 1
+		{x 1 sub fact x mul}	# push x and 1 subtract them then go back to fact and start executing code again
+	ifelse
+} def
+
+2 fact
+
+exch swaps the top 2 elements of the stack
+
+* There is not one dictionary, there is a stack of dictioinaries. [ this is
+* seperate from the operand stack that we've been using so far ]
+how do dictionaries go on and off of the stack?
+* the dict operator: takes an integer argement and puts an empty dictionary on
+* the operand stack. 4 dict
+The begin operator takes a dictionary off the top of the operand stack and puts
+it on the dict stack
+
+common idiom in PS programs is 
+1 dict begin
+
+* variable definitions always happen in top dictionary
+* variable lookup searches all the dictionaries beginning w/ the top variable
+
+dict - takes one operand, creates a new dictionary and pushes it onto the
+evaluation stack
+
+begin - takes one operand (which must be a dictionary) and pushes it onto the
+dictionary stack
+
+idiom - 1 dict begin
+
+/fact {
+	1 dict
+	begin
+	/x exch def
+		0x eq
+		{1}
+		{x 1 sub fact x mul}
+	if else
+	end
+} def
