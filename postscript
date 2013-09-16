@@ -45,3 +45,9 @@ idiom - 1 dict begin
 	if else
 	end
 } def
+
+/f { code in here } def
+
+3 f
+
+at f it looks it up and executes it

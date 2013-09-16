@@ -1,0 +1,75 @@
+One fundamental structured kid of data value
+# 1 cons - cell
+    car               cdr
+| any value lisp | any lisp value |
+
+# f = false
+a = atom
+
+| 3 | #f|    | #t | a |
+        | 3 | ptr to above |
+
+I can now build lists
+
+| 3 | -> | | 4 | -> | | 5 | nil |
+
+trees
+
+        |  |  |
+|#t | () |    |#f | () |
+
+| ptr down | ptr down |
+|   1      |    2   |
+
+'() = end of list
+
+# 2 functions
+    McCarthy wanted a language that Turing - complete. allow recursive functions
+    to be deployed and used.
+    How do these ideas get mapped onto "concrete syntax" ?
+    programs look like lists and often cons-cell based data structures
+
+notation for lists:
+    ( 1 2 3 a b c)
+    () = empty lists
+    ( (1 2)(3 4) a b c ) = listception bro
+    5 items in this list the first two are themselves list the others are
+    cons-cells
+
+notation for non-list cons-cells:
+
+    | 3 | 4 | =  (3 . 4)
+
+Calling functions ( defining will come later )
+we are now talking about programs and not about data values.
+    ( + 2 3 4)
+    the plus denotes a function the rest are arguments
+
+    (+ (- 3 2 )(* 2 6))
+            1   +  12 = 13
+
+functions for cons-cells
+                             value
+    (cons 3 '()) =  |3|'()| = (3)
+
+    ( car |3|'()|) = 3
+
+    ( car (cons 3 '())) = 3
+    ( car '(3)) = 3
+    (cdr '(3)) = ()
+
+we are not going to use the dotted pair data at all in this class:
+
+car returns a list element
+(car '(1 2 3))
+(car |1|ptr|) = 1
+	 |2|ptr|
+	 |3|'()|
+	
+(cdr '(1 2 3)) = |2|ptr| = (2 3)
+				 |3|ptr|
+
+cdr gives the 2nd value of the first cons-cell car gives the first of the
+cons-cells
+
+
