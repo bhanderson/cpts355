@@ -10,6 +10,8 @@ pattern = '/?[a-zA-Z][a-zA-Z0-9_]*|[-]?[0-9]+|[}{]|%.*|[^\t\n ]'
 # .* can be any character
 # ^ any character that is not a tab or newline
 # A simple program
+opstack = []
+distack = [{}]
 demoProg = '''
 /fact {
 	1 dict begin
@@ -21,6 +23,7 @@ demoProg = '''
 	end
 } def
 '''
+
 def parse(s):
 	"""Given a string, return the tokens it contains"""
 	tokens = re.findall(pattern ,s)
@@ -45,6 +48,10 @@ def plt(a, b):
 	return float(a) < float(b)
 def pgt(a, b):
 	return float(a) > float(b)
+def ple(a, b):
+	return float(a) <= float(b)
+def pge(a, b):
+	return float(a) >= float(b)
 def pand(a, b):
 	if type(a) and type(b) is bool:
 		return a and b
@@ -52,12 +59,12 @@ def pand(a, b):
 		return error()
 def por(a, b):
 	if type(a) and type(b) is bool:
-		return a or b
+		opstack.append(a or b)
 	else:
 		return error()
 def pnot(a):
 	if type(a) is bool:
-		return not a
+		opstack.append(not a)
 	else:
 		return error()
 def dup(a):
@@ -71,22 +78,27 @@ def dictz():
 def stack(s):
 	print(s)
 def ptop(a):
-	print a.pop()
+	print(a.pop())
 def error():
 	print("you received an error. Whooops\n")
 
+ops = {
+		"add": padd,
+		"sub": psub,
+		"mul": pmul,
+		"div": pdiv,
+		"eq": peq,
+		"lt": plt,
+		"gt": pgt,
+		"le": ple,
+		"ge": pge,
+		"and": pand,
+		"or": por,
+		"not": pnot,
+		}
 # command line use: pass the filename as the first command-line argument
 if __name__ == "__main__":
 	#fn = sys.argv[1]
 	#print (parseFile(open(fn, 'r')))
-	stack = [999]
-	a = ['3','4']
-	print(padd(a[0],a[1]))
-	print(psub(a[0],a[1]))
-	print(pmul(a[0],a[1]))
-	print(pdiv(a[0],a[1]))
-	print(peq(a[0],a[1]))
-	print(plt(a[0],a[1]))
-	print(pand(True,False))
-	print(por(True,False))
-	print(pnot(True))
+	print (parse(demoProg))
+	tokens = parse(demoProg)
