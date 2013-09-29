@@ -3,6 +3,7 @@ import re
 import sys
 
 pattern = '/?[a-zA-Z][a-zA-Z0-9_]*|[-]?[0-9]+|[}{]|%.*|[^\t\n ]'
+fun = re.compile('/[0-9a-zA-Z?].*')
 # /? has a slash in front
 # * 0 or more
 # token can be right or left brace
@@ -107,6 +108,20 @@ def pfindmatch(tokens, pos):
             tempstack.append(a)
     return tempstack, pos
 
+def printStacks():
+    print("***opstack***")
+    for x in reversed(opstack):
+        print(x)
+    print("***dicstack***")
+    for x in reversed(dicstack):
+        print(x)
+    print("***gstack***")
+    for x in reversed(gstack):
+        print(x)
+    print("***exstack***")
+    for x in reversed(exstack):
+        print(x)
+
 def error(s):
     print("you received a(n) %s error. Whooops\n" % s)
     print("opstack: %s\n" % opstack)
@@ -130,7 +145,7 @@ if __name__ == "__main__":
     #fn = sys.argv[1]
     #print (parseFile(open(fn, 'r')))
     #tokens = parse("3 2 add 2 add 10 add (string one)(take two) false stack")
-    tokens = parse("x")
+    tokens = parse("/x 4 def stack")
     pos = 0
     while pos < len(tokens):
         tok = tokens[pos]
@@ -154,7 +169,15 @@ if __name__ == "__main__":
             elif tok == 'clear':
                 opstack = []
             elif tok == 'stack':
-                print("opstack: %s\ndicstack: %s" % (opstack, dicstack))
+                printStacks()
+            elif tok == '=':
+                print(opstack.pop())
+            elif tok == fun.match(tok):
+                opstack.append(token[1:])
+            elif tok == 'def':
+                if len(opstack)>1 and type(opstack[-2])==str:
+                    tempD = {opstack[-2]:opstack[-1]}
+                    opstack[-2:] = []
             else:
                 error(tok)
     #print("Result: %s" % opstack[0])
