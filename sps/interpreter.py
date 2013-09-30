@@ -116,6 +116,20 @@ def pfindmatch(tokens, pos):
             tempstack.append(a)
     return tempstack, pos
 
+def printStacks():
+    print("***opstack***")
+    for x in reversed(opstack):
+        print(x)
+    print("***dicstack***")
+    for x in reversed(dicstack):
+        print(x)
+    print("***gstack***")
+    for x in reversed(gstack):
+        print(x)
+    print("***exstack***")
+    for x in reversed(exstack):
+        print(x)
+
 def error(s):
     print("you received a(n) %s error. Whooops\n" % s)
     print("opstack: %s\n" % opstack)
@@ -164,6 +178,14 @@ if __name__ == "__main__":
             elif tok == 'clear':
                 opstack = []
             elif tok == 'stack':
-
+                printStacks()
+            elif tok == '=':
+                print(opstack.pop())
+            elif tok == fun.match(tok):
+                opstack.append(token[1:])
+            elif tok == 'def':
+                if len(opstack)>1 and type(opstack[-2])==str:
+                    tempD = {opstack[-2]:opstack[-1]}
+                    opstack[-2:] = []
             else:
                 error(tok)
