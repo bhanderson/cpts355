@@ -3,6 +3,7 @@ import re
 import sys
 
 pattern = '/?[a-zA-Z][a-zA-Z0-9_]*|[-]?[0-9]+|[}{]|%.*|[^\t\n ]'
+names = re.compile('/[a-zA-Z0-9?].*')
 # /? has a slash in front
 # * 0 or more
 # token can be right or left brace
@@ -95,6 +96,14 @@ def stack(s):
 def ptop(a):
     print(a.pop())
 
+def defined(d):
+	for x in dictStack:
+		if d in x.keys():
+			return x[d]
+		else:
+			return None
+
+
 def pfindmatch(tokens, pos):
     tempstack = []
     count = 1
@@ -130,7 +139,8 @@ if __name__ == "__main__":
     #fn = sys.argv[1]
     #print (parseFile(open(fn, 'r')))
     #tokens = parse("3 2 add 2 add 10 add (string one)(take two) false stack")
-    tokens = parse("x")
+    tokens = parse("1 2 3 {/x 4 def} stack")
+    print(tokens)
     pos = 0
     while pos < len(tokens):
         tok = tokens[pos]
@@ -154,8 +164,6 @@ if __name__ == "__main__":
             elif tok == 'clear':
                 opstack = []
             elif tok == 'stack':
-                print("opstack: %s\ndicstack: %s" % (opstack, dicstack))
+
             else:
                 error(tok)
-    #print("Result: %s" % opstack[0])
-    #print("opstack: %s" % opstack)
