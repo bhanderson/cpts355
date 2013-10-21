@@ -1,0 +1,13 @@
+curly braces push all onto the stack
+
+6	def		/f {...}
+1	dict	3
+1 	def		/z 3
+2	begin	{empty dict}
+# these operations are on the new dict
+3 	def		/z 4
+4	def		/y 5
+5	mul		5 4
+7	mul		20 5
+# leaving 100 on the stack
+

@@ -1,0 +1,47 @@
+Welcome to DrRacket, version 5.3.1 [3m].
+Language: R5RS; memory limit: 128 MB.
+> (define (cpy l) (cond
+                    ((null? l) '())
+                    (#t (cons (car l) (cpy (cdr
+                                            l))))))
+> (define (map f l) (cond
+                      ((null? l) '())
+                      (#t (cons (f (car l)) (map f (cdr l))))))
+define-values: assignment disallowed;
+ cannot change constant
+  constant: map
+> (define (id x) x)
+> (define (cpy l) (map id l))
+> (cpy '(1 2 3))
+(1 2 3)
+> (define (double x) (* 2 x))
+> (define (doubleall l) (map double l))
+> (doubleall '(1 2 3))
+(2 4 6)
+> (define (add all l) (cond
+                        ((null? l) o)
+                        (#t (+ (car l) (addall (cdr l))))))
+> (define (addall l) (cond
+                       ((null? l) 0)
+                       (#t (+ (car l) (addall (cdr l))))))
+> (define (fold f base l) (cond
+                            ((null? l) base)
+                            (#t (f (car l) (fold f base (cdr l))))))
+> +
+#<procedure:+>
+> (define (addup l) (fold + 0 l))
+> (addup '(1 2 3))
+6
+> (define (mulall l) (fold * 1 l))
+> (mulall '(1 2 3))
+6
+> (define (mymap f l) fold (lambda (x y) (cons (f x) y)) '() l))
+> (mymap id '(1 2 3))
+(1 2 3)
+> (mymap double '(1 2 3))
+(2 4 6)
+> (define (gt4 l) (cond
+			((null? l) '())
+			(#t (cond 
+				((> (car l) 4) (cons (car l) (gt4 (cdr l))))
+					(#t (gt4 (cdr l)))))

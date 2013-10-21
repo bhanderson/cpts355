@@ -1,0 +1,62 @@
+<pgm> -> <stmt>; <pgm>
+		| <stmt>
+<stmt> -> <assignment>
+		| <while>
+		| <if>
+<expr> -> ...
+
+<if> -> if <expr> then <pgm> else <pgm>
+	
+	 if <expr> then <pgm>
+
+	if ... then if ... then x=y else y=x
+
+<pgm>
+<stmt>
+<if>
+if <expr> then <pgm> else <pgm>
+	...        <stmt>        <assign>
+	            <if>           x=y
+       if <expr> then <pgm>
+                         x=y
+
+<pgm>
+<stmt>
+<if>
+if <expr> then <pgm>
+    ....       if ... then <pgm> else <pgm>
+                            <assign>   <assign>
+                            x = y       x = y
+
+if <expr> then {
+
+}
+
+design a grammar for infix expressions involving
+such that * and / have equal precedence and a left associative
+
+<expr> ->
+
+<equators> -> * | /
+<vars> -> x | y | z ....
+
+<expr>-> <expr> <operator> <var>
+	  -> <var>
+modify grammar to have + and - operators as well and make them right associative
+
+<expr>-> <expr> <ooperator> <addexpr>
+	  -> <addexpr>
+
+<addexpr> -> <var> <add operators> <addexpr>
+		  -> <var>
+modify this to have a ^ with a higher precedence than * / and lower precedence
+than + - with left associativity
+
+<powexpr> -> <powexpr> ^ <addexpr>
+		  -> <addexpr>
+
+<expr> -> <expr> <operator> <powexpr>
+	   -> <powexpr>
+
+
+<parenexpr> -> (<expr>) | <var>

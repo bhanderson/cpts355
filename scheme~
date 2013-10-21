@@ -1,0 +1,30 @@
+(define nth (lambda (list n)
+                (if (eq? n 0)
+                    (car list)
+                    (nth (cdr list) (- n 1)))))
+
+(define repl (lambda (list old new)
+               (if (eq? (car list) old)
+                   (cons new (cdr list))
+                   (repl (cdr list) old new))))
+
+(define range (lambda (min max)
+                (if (>= min max)
+                    '()
+                    (cons min (range (+ 1 min) max)))))
+
+(define merge2 (lambda (l1 l2)
+                 (if (null? l1)
+                     l2
+                     (if (null? l2)
+                         l1
+                         (if (< (car l1) (car l2))
+                             (cons (car l1) (merge2 (cdr l1) l2))
+                             (cons (car l2) (merge2 l1 (cdr l2))))))))
+
+
+
+(define (mergeN L)
+  (cond
+    ((null? L) basecase)
+    (#t (fold merge2 '() L))))

@@ -1,0 +1,6 @@
+datatype Color = Red | Brown | Green;
+Brown;
+datatype address = Email of string | Phone of int | Postal of {street: string,
+city: string, zip: int};
+Email "hauser@eecs.wsu.edu";
+

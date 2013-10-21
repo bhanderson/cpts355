@@ -1,0 +1,57 @@
+(define nth (lambda (list n)
+                (if (eq? n 0)
+                    (car list)
+                    (nth (cdr list) (- n 1)))))
+(if (= (nth '(1 2 3 4) 1) 2)
+    '("nth Pass")
+    '("nth Fail")
+    )
+
+(define repl (lambda (list old new)
+               (if (eq? (car list) old)
+                   (cons new (cdr list))
+                   (repl (cdr list) old new))))
+(if (equal? (repl '(1 2 3 4) 1 7) '(7 2 3 4))
+    '("repl Pass")
+    '("repl Fail")
+    )
+
+(define range (lambda (min max)
+                (if (>= min max)
+                    '()
+                    (cons min (range (+ 1 min) max)))))
+(if (equal? (range 4 6) '(4 5))
+    '("range Pass")
+    '("range Fail")
+    )
+(define merge2 (lambda (l1 l2)
+                 (if (null? l1)
+                     l2
+                     (if (null? l2)
+                         l1
+                         (if (< (car l1) (car l2))
+                             (cons (car l1) (merge2 (cdr l1) l2))
+                             (cons (car l2) (merge2 l1 (cdr l2))))))))
+
+(if (equal? (merge2 '(1 3 5) '(2 4 6)) '(1 2 3 4 5 6))
+      '("Merge2 Pass")
+      '("Merge2 Fail")
+      )
+
+(define (fold fcombine basecase L)
+  (cond
+    ((null? L) basecase)
+    (#t (fcombine (car L) (fold fcombine basecase (cdr L))))
+  ))
+
+(define (mergeN L)
+  (cond
+    ((null? L) basecase)
+    (#t (fold merge2 '() L))))
+
+(if (equal? (mergeN '((2 4 5) (1 4 6) (3 7 9))) '(1 2 3 4 4 5 6 7 9))
+    '("MergeN Pass")
+    '("Merge2 Fail")
+    )
+
+

@@ -1,0 +1,16 @@
+High order functions:
+	Function that takes another function as an argument and or returns another function as a result
+
+(define (cpy l) (cond
+                    ((null? l) '())
+                    (#t (cons (car l) (cpy (cdr
+                                            l))))))
+
+(define (add all l) (cond
+	((null? l) 0)
+	(#t (+ (car l) (addall (cdr l))))))
+(define (mulall l) (cond
+	((null? l) 1)
+	(#t (* (car l) (mullall (cdr l))))))
+
+generalization is called fold and a bas case value and combining function as an 

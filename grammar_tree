@@ -1,0 +1,56 @@
+            <t>
+        <t>     +   <f>
+    <t> + <f>       X
+<f>         Y
+X           
+
+read as X + Y + X
+
+There are some general principles in the design of a grammar for
+acheiving particular associativity left or right
+
+<t> -> <f> - <t>
+    |<f>
+<f> -> x | y        right associativity
+
+if its recursive on the right its right associative and vice versa
+
+<t> -> <t> + <f>
+    | <f>
+
+<f> -> <f> * <p>
+    | <p>
+
+
+            <t>
+        <t> + <f>
+        <f>     <f> * <p>
+        <p>     <p>   Y
+        X       Y   
+X + Y * Y
+therefore * has higher precedence than +
+
+
+<t> -> <f> * <t>
+    | <f>
+
+<f> -> <f> + <p>
+    | <p>
+
+<p> -> X | Y
+
+
+            <t>
+        <f> *   <t>
+    <f> + <p>   <f>
+    <p>    Y    <p>
+    X            Y
+
+Terminals: numbers, names, /name, { , }
+
+<spspgm> -> <terminal <spsprograms>
+    | <terminal>
+
+<spsProgram> -> <termina> <sps program>
+            -> <terminal>
+               {sps program}

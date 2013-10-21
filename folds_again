@@ -1,0 +1,31 @@
+Fold:
+	combines elements of a list
+	takes a defining function f a base case base and a list L
+# put the base on the right
+	(define (fold f base L) (cond
+			((null? L) base)
+			(#t (f (car L)( fold f base (cdr L))))))
+
+(fold + 0 '(1 2))) ==
+(+ 1 (fold + 0 '(2))) ==
+(+ 1(+ 2 (fold + 0 '()))) ==
+(+ 1 (+ 2 0))
+#putting the base on the left
+	(define(foldl f base L) (cond
+		((null? L) base)		# for empty list its just base case
+		(#f (foldl f (f base (car L)) (cdr L)))))
+
+(foldl + 0 '(1 2)) ==
+(foldl + (+ 0 1) '(2)) ==
+(foldl + 1 '(2)) ==
+(foldl + (+ 1 2) '()) ==
+foldl + 3 '()) == 3'
+(+ (+ 0 1) 2)
+
+#infix
+(0 + 1) + 2 == foldl
+1 + (2 + 0) == foldr
+
+foldl, foldr, cons have an interesting property:
+	(foldr cons '() L) == (copy L)
+	(foldl cons '() L) == (reverse L)
