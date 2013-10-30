@@ -1,0 +1,5 @@
+Polymorphism : having many forms
+	in ML polymorphic types are ones that involve type variables.
+	'a list
+polymorphic functions to process values with polymorphic types
+len: 'a list -> int

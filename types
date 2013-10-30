@@ -1,0 +1,16 @@
+fun insert x [] = [[x]]
+	| insert x (y::ys) = let
+		fun consy l = y :: l
+in
+	(x::y::ys) :: (map consy (insert x ys))
+end;
+
+map  (insert 3) [[2,1], [1,2]];
+
+List.concat it;
+
+fun perms [] = [[]]
+	| perms (x::y) = List.concat (map (insert x) (perms y));
+
+fun reverse [] = []
+	| reverse (x::xs) = reverse xs;
