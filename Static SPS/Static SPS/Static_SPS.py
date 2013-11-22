@@ -184,7 +184,8 @@ def evalLoop(tokens):
         elif t=='def':
             if len(stack)>1 and type(stack[-2])==type(''):
                 dictStack[0][stack[-2]] = stack[-1]
-                staticStack[position][1][stack[-2]] = stack[-1]
+                if len(staticStack)>position:
+                    staticStack[position][1][stack[-2]] = stack[-1]
                 stack[-2:] = []
             else: print("invalid operands for", t)
 
@@ -252,6 +253,8 @@ def evalLoop(tokens):
                 position = position + 1
                 staticStack.append((position,{}))
                 evalLoop(defn)
+                position = position - 1
+                staticStack.pop()
                 
             else:
             # otherwise, just push the value on the op stack

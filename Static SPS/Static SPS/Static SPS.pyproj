@@ -12,6 +12,11 @@
     <OutputPath>.</OutputPath>
     <Name>Static SPS</Name>
     <RootNamespace>Static SPS</RootNamespace>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <CommandLineArguments>"C:\Users\Bryce\Source\Repos\cpts355\Static SPS\test.txt" -s</CommandLineArguments>
+    <InterpreterPath />
+    <InterpreterArguments />
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
